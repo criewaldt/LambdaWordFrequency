@@ -43,13 +43,22 @@ def wordFrequency(event, context):
                 'total' : len(wordList)},
             'words' : []}
 
+        topWordCount = 0
+
         #count frequency of each unique word and append to payload['words'] array
         for word in uniqueWords:
             payload['words'].append({'word':word, 'count':wordList.count(word)})
-
+            if wordList.count(word) > topWordCount:
+                topWordCount = wordList.count(word)
+                topWord = word
+        #include top word and count
+        payload['top'] = {
+            'word':topWord,
+            'count':topWordCount}
+        
         #done
         return payload
-        
+
 if __name__ == "__main__":
     pass
 
